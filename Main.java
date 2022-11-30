@@ -67,10 +67,8 @@ public class Main {
     return newUser;
   }
   public static void main(String[] args) {
-    /*Account leo = new Account("leo","password123",1000);
-    ArrayList<Account> accounts = new ArrayList<Account>();
-    accounts.add(leo);
-    */
+    Database userDb = new Database();
+    userDb.connect();
     Account user;
     char[] yesNo = {'y','n'};
     int hasAccount = askQuestion("Welcome to MHS Bank. Do you have an account?", yesNo);
