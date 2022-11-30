@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Account {
 	private double balance;
   private String username;
@@ -8,12 +10,30 @@ public class Account {
     this.password = password;
     this.balance = balance;
   }
+  public double getAmount() {
+    double amount = 0;
+    Scanner scanner = new Scanner(System.in);
+    boolean inputting = true;
+    while (inputting) {
+      //ask for username and password
+      try {
+        System.out.print("amount: ");
+        amount = Double.parseDouble(scanner.nextLine());
+        inputting = false;
+      } catch (Exception e) {
+        System.out.println("not a valid value, try again.");
+      }
+    }
+    return amount;
+  }
   
-  public void deposit (double amount) {
+  public void deposit () {
+    double amount = getAmount();
     balance += amount;
     System.out.println("your new balance is " + balance);
   }
-  public void withdraw (double amount) {
+  public void withdraw () {
+    double amount = getAmount();
     balance -= amount;
     System.out.println("your new balance is " + balance);
   }

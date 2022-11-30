@@ -85,10 +85,10 @@ public class Main {
       int action = askQuestion("Deposit, Withdraw, get Balance, or eXit?", actions);
       switch(action) {
         case (0):
-          user.deposit(50);
+          user.deposit();
           break;
         case (1):
-          user.withdraw(5);
+          user.withdraw();
           break;
         case (2):
           System.out.println(user.getBalance());
