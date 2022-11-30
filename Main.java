@@ -26,6 +26,7 @@ public class Main {
         System.out.println("option not recognized. try again.");
       }
     }
+    scanner = null;
     return result;
   }
   public static Account login() {
@@ -56,6 +57,7 @@ public class Main {
         //or get an option to create an account!
       }
     }
+    scanner = null;
     return account;
   }
   public static Account signup() {

@@ -24,6 +24,7 @@ public class Account {
         System.out.println("not a valid value, try again.");
       }
     }
+    scanner = null;
     return amount;
   }
   
@@ -34,8 +35,12 @@ public class Account {
   }
   public void withdraw () {
     double amount = getAmount();
-    balance -= amount;
-    System.out.println("your new balance is " + balance);
+    if (amount <= balance) {
+      balance -= amount;
+      System.out.println("your new balance is " + balance);
+    } else {
+      System.out.println("sum requested too large.");
+    }
   }
   public double getBalance() {
       return balance;
