@@ -1,22 +1,29 @@
 import java.util.Scanner;
+import java.util.stream.IntStream;
 //the thing that gets user input
 
 public class Main {
-  public static boolean askQuestion(String question) {
+  public static int indexOf(char[] arr, char val) {
+    return IntStream.range(0, arr.length).filter(i -> arr[i] == val).findFirst().orElse(-1);
+  }
+  public static int askQuestion(String question, char[] opts) {
     Scanner scanner = new Scanner(System.in);
-    boolean result = false;
+    int result = -1;
     boolean inputting = true;
+    question = question + " [";
+    for (int i = 0; i < (opts.length - 1); i++) {
+      question += opts[i]+"/";
+    }
+    question += opts[opts.length - 1]+"]: ";
     while (inputting) {
-      System.out.print(question + " [y/n]: ");
-      String answer = scanner.nextLine();
-      if (answer.equals("y")) {
-        result = true;
-        inputting = false;
-      } else if (answer.equals("n")) {
-        result = false;
+      System.out.print(question);
+      char answer = scanner.nextLine().charAt(0);
+      int answerIndex = indexOf(opts, answer);
+      if (answerIndex >= 0) {
+        result = answerIndex;
         inputting = false;
       } else {
-        System.out.println("use either 'y' or 'n'");
+        System.out.println("option not recognized. try again.");
       }
     }
     return result;
@@ -62,19 +69,37 @@ public class Main {
     ArrayList<Account> accounts = new ArrayList<Account>();
     accounts.add(leo);
     */
-    boolean hasAccount = askQuestion("Welcome to MHS Bank. Do you have an account?");
-    if (hasAccount) {
+    Account user;
+    char[] yesNo = {'y','n'};
+    int hasAccount = askQuestion("Welcome to MHS Bank. Do you have an account?", yesNo);
+    if (hasAccount == 0) {
       System.out.println("you have an account!");
-      Account user = login();
-      user.deposit(50);
-      user.withdraw(5);
-      System.out.println(user.getBalance());
+      user = login();
     } else {
       System.out.println("create an account:");
-      Account newUser = signup();
-      newUser.deposit(50);
-      newUser.withdraw(5);
-      System.out.println(newUser.getBalance());
-    }    
+      user = signup();
+    }
+    char[] actions = {'d','w','b','x'};
+    boolean session = true;
+    while (session) {
+      int action = askQuestion("Deposit, Withdraw, get Balance, or eXit?", actions);
+      switch(action) {
+        case (0):
+          user.deposit(50);
+          break;
+        case (1):
+          user.withdraw(5);
+          break;
+        case (2):
+          System.out.println(user.getBalance());
+          break;
+        case (3):
+          System.out.println("exiting...");
+          session = false;
+          break;
+        default:
+          break;
+      }
+    }
   }
 }
