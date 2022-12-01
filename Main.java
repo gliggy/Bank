@@ -32,7 +32,7 @@ public class Main {
   public static Account login() {
     Scanner scanner = new Scanner(System.in);
     Index indexClass = new Index();
-    Account account = new Account("","",0);
+    Account account = null;
     boolean inputting = true;
     while (inputting) {
       //ask for username and password
@@ -41,9 +41,20 @@ public class Main {
       System.out.print("password: ");
       String password = scanner.nextLine();
       //ask List for the index of the account with that username
-      int index = indexClass.getIndex(username);
-      if (index >= 0) {
-        account = indexClass.getAccount(index);
+      //int index = Index indexClass = new Index(username,password,1000.0);
+      account = indexClass.getAccount(username);
+      if (account == null) {
+        System.out.println("user does not exist. try again.");
+      } else {
+        if (account.login(username, password)) {
+          System.out.println("login successful for " + account.getUsername());
+          inputting = false;
+        } else {
+          //else do it all over again
+          System.out.println("password incorrect. try again.");
+        }
+      }/* 
+        account = indexClass.getAccount(username);
         //try to login to the account with username and password
         if (account.login(username, password)) {
           System.out.println("login successful for " + account.getUsername());
@@ -55,21 +66,31 @@ public class Main {
       } else {
         System.out.println("user does not exist. try again.");
         //or get an option to create an account!
-      }
+      }*/
     }
     scanner = null;
     return account;
   }
   public static Account signup() {
-//    System.out.print("new username: ");
-    Account newUser = new Account("new","user",0);
+    Scanner scanner = new Scanner(System.in);
+    Index indexClass = new Index();
+    Account newUser = null;
+    //boolean inputting = true;
+    System.out.print("new username: ");
+    String newUsername = scanner.nextLine();
+    System.out.print("new password: ");
+    String newPassword = scanner.nextLine();
+    indexClass.signup(newUsername, newPassword, 0);
+    newUser = indexClass.getAccount(newUsername);
     System.out.println("Account created for user: " + newUser.getUsername());
-    return newUser;
-  }
+    scanner = null;
+    return newUser;  
+}
+
   public static void main(String[] args) {
-    Database userDb = new Database();
-    userDb.connect();
-    Account user;
+    Database userDB = new Database();
+    userDB.createDB();
+    Account user = null;
     char[] yesNo = {'y','n'};
     int hasAccount = askQuestion("Welcome to MHS Bank. Do you have an account?", yesNo);
     if (hasAccount == 0) {

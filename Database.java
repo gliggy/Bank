@@ -3,48 +3,42 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class Database {
   public Database() {
 
   }
-  public void connect()
+  public void createDB()
   {
     Connection connection = null;
-    try
-    {
+    try {
       // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:accounts.db");
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
-      statement.executeUpdate("drop table if exists person");
-      statement.executeUpdate("create table person (id integer, name string)");
-      statement.executeUpdate("insert into person values(1, 'leo')");
-      statement.executeUpdate("insert into person values(2, 'yui')");
-      ResultSet rs = statement.executeQuery("select * from person");
+      //statement.executeUpdate("drop table if exists accounts");
+      statement.executeUpdate("create table if not exists accounts (username string unique, password string, balance double)");
+      statement.executeUpdate("insert into accounts values('leo', 'password123',1000.0)");
+      statement.executeUpdate("insert into accounts values('gliggy','duckduck',500.0)");
+      PreparedStatement pstatement = connection.prepareStatement("select * from accounts where username = ?");
+      pstatement.setString(1, "paul");
+      ResultSet rs = pstatement.executeQuery();
       while(rs.next())
       {
         // read the result set
-        System.out.println("name = " + rs.getString("name"));
-        System.out.println("id = " + rs.getInt("id"));
+        System.out.println("username = " + rs.getString("username"));
+        System.out.println("password = " + rs.getString("password"));
+        System.out.println("balance = " + rs.getDouble("balance"));
       }
-    }
-    catch(SQLException e)
-    {
+    } catch(SQLException e) {
       // if the error message is "out of memory",
       // it probably means no database file is found
       System.err.println(e.getMessage());
-    }
-    finally
-    {
-      try
-      {
+    } finally {
+      try {
         if(connection != null)
           connection.close();
-      }
-      catch(SQLException e)
-      {
+      } catch(SQLException e) {
         // connection close failed.
         System.err.println(e.getMessage());
       }

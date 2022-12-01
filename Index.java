@@ -1,28 +1,26 @@
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.HashMap; // import the HashMap class
 
 public class Index {
-  Account leo;
-  Account gliggy;
-  ArrayList<Account> accounts = new ArrayList<Account>();
-  ArrayList<String> usernames = new ArrayList<String>();
+  Account leo = new Account("leo","password123",1000);
+  Account gliggy = new Account("gliggy","duckduck",500);
+  HashMap<String, Account> accounts = new HashMap<String, Account>();
+  //ArrayList<Account> accounts = new ArrayList<Account>();
+  //ArrayList<String> usernames = new ArrayList<String>();
   public Index() {
-    Account leo = new Account("leo","password123",1000);
-    Account gliggy = new Account("gliggy","duckduck",500);
-    ArrayList<Account> accounts = new ArrayList<Account>();
-    ArrayList<String> usernames = new ArrayList<String>();
-    usernames.add("leo");
-    accounts.add(leo);
-    usernames.add("gliggy");
-    accounts.add(gliggy);
-    
-    this.accounts = accounts;
-    this.usernames = usernames;
+    accounts.put("leo", leo);
+    accounts.put("gliggy", gliggy);
   }
-  public int getIndex(String username) {
-    return usernames.indexOf(username);
+  public void signup(String username, String password, double balance) {
+    Account account = new Account(username,password,balance);
+    accounts.put(username, account);
   }
-  public Account getAccount(int index) {
-    return accounts.get(index);
+  public Account getAccount(String username) {
+    return accounts.get(username);
   }
 }
 
+/*
+ * Account leo = new Account("leo","password123",1000);
+ * Account gliggy = new Account("gliggy","duckduck",500);
+ */
