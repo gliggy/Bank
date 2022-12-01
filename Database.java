@@ -17,7 +17,7 @@ public class Database {
       connection = DriverManager.getConnection("jdbc:sqlite:accounts.db");
       Statement statement = connection.createStatement();
       //statement.executeUpdate("drop table if exists accounts");
-      statement.executeUpdate("create table if not exists accounts (username string unique, password string, balance double)");
+      statement.executeUpdate("create table if not exists accounts (username string unique, password string, balance double)");//key string unique, 
       statement.executeUpdate("insert into accounts values('leo', 'password123',1000.0)");
       statement.executeUpdate("insert into accounts values('gliggy','duckduck',500.0)");
       PreparedStatement pstatement = connection.prepareStatement("select * from accounts where username = ?");

@@ -46,7 +46,10 @@ public class Account {
       return balance;
   }
   public String getUsername() {
-    return this.username;
+    return username;
+  }
+  public String getPassword() {
+    return password;
   }
   public boolean login(String username, String password) {
     if (this.username.equals(username) && this.password.equals(password)) {
