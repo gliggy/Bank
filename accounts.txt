@@ -1,0 +1,4 @@
+    accounts.put("gliggy", new Account("gliggy","duckduck",500.0);
+    accounts.put("leo", new Account("leo","password123",1500.0);
+    accounts.put("paul", new Account("paul","secret",1050.0);
+    accounts.put("maman", new Account("maman","chien",55.0);

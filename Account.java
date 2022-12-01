@@ -1,10 +1,11 @@
-//import java.nio.charset.StandardCharsets;
-//import java.nio.file.Files;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.charset.StandardCharsets;
 //import java.util.List;
 import java.util.Scanner;
-import java.io.FileWriter;   // Import the FileWriter class
+//import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;
 
 
@@ -70,16 +71,22 @@ public class Account {
     return false;
   }
   public void editFile(String key,String uname, String pswd, double blnc) {
+    Path filePath = Paths.get("accounts.txt");
+    if (!Files.exists(filePath)) {
+      try {
+        Files.createFile(filePath);
+      } catch (IOException e) {
+        System.out.println("somehow we have arrived here ???");
+      }
+    }
     try {
-      FileWriter myWriter = new FileWriter("test.txt");
-      myWriter.write("accounts.put("+key+", new Account("+uname+","+pswd+","+blnc+");");
-      myWriter.close();
+      String newEntry = "    accounts.put(\""+key+"\", new Account(\""+uname+"\",\""+pswd+"\","+blnc+");\n";
+      Files.write(filePath, newEntry.getBytes(), StandardOpenOption.APPEND);
       System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
-
   }
   public void saveAccount() {
     System.out.println("saving...");
