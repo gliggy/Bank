@@ -122,5 +122,15 @@ public class Main {
           break;
       }
     }
+    char[] exit = {'s','x'};
+    int save = askQuestion("Save account or eXit without saving?", exit);
+    switch(save) {
+      case(0):
+        user.saveAccount();
+      case (1):
+        break;
+      default:
+        break;
+    }
   }
 }

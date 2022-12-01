@@ -1,9 +1,11 @@
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+//import java.nio.charset.StandardCharsets;
+//import java.nio.file.Files;
+//import java.nio.file.Path;
+//import java.nio.file.Paths;
+//import java.util.List;
 import java.util.Scanner;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;
 
 
 public class Account {
@@ -12,8 +14,8 @@ public class Account {
   private String password;
   
   // Read all lines from source file
-  final Path source = Paths.get("/path/to/source.txt");
-  final List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);
+  //final Path source = Paths.get("Index.java");
+  //final List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);
 
   public Account(String username, String password, double balance) {
     this.username = username;
@@ -68,18 +70,23 @@ public class Account {
     return false;
   }
   public void editFile(String key,String uname, String pswd, double blnc) {
+    try {
+      FileWriter myWriter = new FileWriter("test.txt");
+      myWriter.write("accounts.put("+key+", new Account("+uname+","+pswd+","+blnc+");");
+      myWriter.close();
+      System.out.println("Successfully wrote to the file.");
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
 
   }
-  public void saveAccount(Index index) {
+  public void saveAccount() {
     System.out.println("saving...");
     //if key is in db, change password or balance for that user;
     //else create new user with account.getUsername;
-    if (!(index.getAccount(username) == null)) {
-      editFile(username,username,password,balance);
-    } else {
-      editFile("new",username,password,balance);
-    }
+    editFile(username,username,password,balance);
+    System.out.println("saved!");
   }
 }
 
-}
