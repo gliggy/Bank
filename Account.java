@@ -1,10 +1,20 @@
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
+
 
 public class Account {
 	private double balance;
   private String username;
   private String password;
   
+  // Read all lines from source file
+  final Path source = Paths.get("/path/to/source.txt");
+  final List<String> lines = Files.readAllLines(source, StandardCharsets.UTF_8);
+
   public Account(String username, String password, double balance) {
     this.username = username;
     this.password = password;
@@ -57,4 +67,19 @@ public class Account {
     }
     return false;
   }
+  public void editFile(String key,String uname, String pswd, double blnc) {
+
+  }
+  public void saveAccount(Index index) {
+    System.out.println("saving...");
+    //if key is in db, change password or balance for that user;
+    //else create new user with account.getUsername;
+    if (!(index.getAccount(username) == null)) {
+      editFile(username,username,password,balance);
+    } else {
+      editFile("new",username,password,balance);
+    }
+  }
+}
+
 }

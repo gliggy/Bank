@@ -88,8 +88,8 @@ public class Main {
 }
 
   public static void main(String[] args) {
-    Database userDB = new Database();
-    userDB.createDB();
+    //Database userDB = new Database();
+    //userDB.createDB();
     Account user = null;
     char[] yesNo = {'y','n'};
     int hasAccount = askQuestion("Welcome to MHS Bank. Do you have an account?", yesNo);
