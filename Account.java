@@ -80,8 +80,10 @@ public class Account {
       }
     }
     try {
-      String newEntry = "    accounts.put(\""+key+"\", new Account(\""+uname+"\",\""+pswd+"\","+blnc+");\n";
+      String newEntry = "    accounts.put(\""+key+"\", new Account(\""+uname+"\",\""+pswd+"\","+blnc+"));\n";
       Files.write(filePath, newEntry.getBytes(), StandardOpenOption.APPEND);
+      //sed "s/name_of_the_value=.*/name_of_the_value=$new_value/"
+
       System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
       System.out.println("An error occurred.");
