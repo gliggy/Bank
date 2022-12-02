@@ -3,3 +3,4 @@
     accounts.put("paul", new Account("paul","secret",1050.0));
     accounts.put("maman", new Account("maman","chien",55.0));
     accounts.put("maman", new Account("maman","chien",455.0));
+    accounts.put("maman", new Account("maman","chien",0.0));
