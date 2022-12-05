@@ -53,20 +53,7 @@ public class Main {
           //else do it all over again
           System.out.println("password incorrect. try again.");
         }
-      }/* 
-        account = indexClass.getAccount(username);
-        //try to login to the account with username and password
-        if (account.login(username, password)) {
-          System.out.println("login successful for " + account.getUsername());
-          inputting = false;
-        } else {
-          //else do it all over again
-          System.out.println("password incorrect. try again.");
-        }
-      } else {
-        System.out.println("user does not exist. try again.");
-        //or get an option to create an account!
-      }*/
+      }
     }
     scanner = null;
     return account;
@@ -122,8 +109,7 @@ public class Main {
           break;
       }
     }
-    char[] exit = {'s','x'};
-    int save = askQuestion("Save account or eXit without saving?", exit);
+    int save = askQuestion("Save account before exiting?", yesNo);
     switch(save) {
       case(0):
         user.saveAccount();

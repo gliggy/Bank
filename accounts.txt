@@ -4,3 +4,4 @@
     accounts.put("maman", new Account("maman","chien",55.0));
     accounts.put("maman", new Account("maman","chien",455.0));
     accounts.put("maman", new Account("maman","chien",0.0));
+    accounts.put("leo", new Account("leo","password123",950.0));
